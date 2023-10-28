@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .login-container {
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0074d9;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .image-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="checkPassword()">Iniciar sesión</button>
+    </div>
+    <div class="image-container" style="display: none;">
+        <img id="dayImage" src="androidlarge_1.png" alt="Imagen de día">
+        <img id="nightImage" src="androidlarge_2.png" alt="Imagen de noche">
+    </div>
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+
+            if (password === 'Bachicha2023') {
+                showCorrectImage();
+            } else {
+                alert('Contraseña incorrecta. Por favor, inténtalo de nuevo.');
+            }
+        }
+
+        function showCorrectImage() {
+            const isDaytime = isDayInMendoza();
+            const loginContainer = document.querySelector('.login-container');
+            const imageContainer = document.querySelector('.image-container');
+            const dayImage = document.getElementById('dayImage');
+            const nightImage = document.getElementById('nightImage');
+
+            if (isDaytime) {
+                dayImage.style.display = 'block';
+                nightImage.style.display = 'none';
+            } else {
+                dayImage.style.display = 'none';
+                nightImage.style.display = 'block';
+            }
+
+            loginContainer.style.display = 'none';
+            imageContainer.style.display = 'block';
+        }
+
+        function isDayInMendoza() {
+            const now = new Date();
+            const hours = now.getUTCHours() - 3; // Mendoza UTC offset is -3
+            return hours >= 6 && hours < 18; // Assuming daytime is from 6:00 AM to 6:00 PM
+        }
+    </script>
+</body>
+</html>
